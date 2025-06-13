@@ -1,32 +1,29 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
-/******/ 	var __webpack_modules__ = ({
-
-/***/ "./src/background.js":
 /*!***************************!*\
   !*** ./src/background.js ***!
   \***************************/
-/***/ (() => {
+chrome.runtime.onInstallec.addListener(() => {
+    chrome.alarms.create('fetchWeather',{periodInMinutes: 30});
 
-eval("console.log(\"background script is running\");\n\n//# sourceURL=webpack://weather-extension/./src/background.js?");
+    fetchWeather();
+});
 
-/***/ })
 
-/******/ 	});
-/************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = {};
-/******/ 	__webpack_modules__["./src/background.js"]();
-/******/ 	
+chrome.alarms.onAlarm.AddListener((alarm) => {
+    if (alarm.name === 'fetchWeather') {
+        fetchWeather();
+    }
+});
+
+async function fetchWeather() {
+    try {
+        const response = await fetch('http://api.weatherapi.com/v1/forecast.json?key=58863122eea94cbabf690314251306&q=Falkirk&days=1&aqi=no&alerts=no')
+        const data = await response.json();
+        chrome.storage.local.set({weatherData: data});
+    } catch (error) {
+        console.error('Weather fetch failed', error);
+    }
+}
 /******/ })()
 ;
+//# sourceMappingURL=background.js.map
