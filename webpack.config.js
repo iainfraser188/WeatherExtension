@@ -4,7 +4,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   entry: {
     background: "./src/background.js",
     content: "./src/content.js",
@@ -14,6 +14,13 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
     clean: true,
+     environment: {
+    arrowFunction: false,
+    const: false,
+    destructuring: false,
+    dynamicImport: false,
+    module: false,
+  },
   },
   plugins: [
     new HtmlWebpackPlugin({

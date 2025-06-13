@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap
+/******/ (function() { // webpackBootstrap
 /*!************************!*\
   !*** ./src/content.js ***!
   \************************/
