@@ -3,6 +3,6 @@ chrome.storage.local.get('weatherData', (result) => {
     const weatherDiv = document.getElementById('weather');
     if (data) {
         weatherDiv.innerHTML = 
-        <p>${data.location.name}</p>
+        `<p>${data.location.name}</p>`
     }
 });
