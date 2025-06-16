@@ -1,7 +1,5 @@
 import './popup.css';
 
-chrome.storage.local.get('weatherData', (result) => {
-    const data = result.weatherData;
     const location = document.getElementById('locationName');
     const temperature = document.getElementById('temperature');
     const weatherIcon = document.getElementById('weatherIcon');
@@ -17,6 +15,9 @@ chrome.storage.local.get('weatherData', (result) => {
     const forthDayTemperature = document.getElementById('forthDayTemperature');
     const forthDayIcon = document.getElementById('forthDayIcon');
    
+    chrome.storage.local.get('weatherData', (result) => {
+   
+    const data = result.weatherData;
 
     if (data) {
         location.innerText = `${data.location.name}, ${data.location.country}`;
@@ -29,10 +30,10 @@ chrome.storage.local.get('weatherData', (result) => {
 
         tommorrowTemperature.innerText = `${data.forecast.forecastday[0].day.avgtemp_c}\u00B0C`;
         tommorrowIcon.src = `https:${data.forecast.forecastday[0].day.condition.icon}`;
-
         const [thirdYear, thirdMonth, thirdDay] = data.forecast.forecastday[1].date.split("-");
         const thirdDateString = `${thirdDay}-${thirdMonth}`
         thirdDayButton.innerText = `${thirdDateString}`;
+        console.log(data.forecast.forecastday[1].day.avgtemp_c);
         thirdDayTemperature.innerText = `${data.forecast.forecastday[1].day.avgtemp_c}\u00B0C`;
         thirdDayIcon.src = `https:${data.forecast.forecastday[1].day.condition.icon}`;
 
