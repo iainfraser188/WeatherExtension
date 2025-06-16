@@ -6,14 +6,22 @@ chrome.storage.local.get('weatherData', (result) => {
     const temperature = document.getElementById('temperature');
     const weatherIcon = document.getElementById('weatherIcon');
     const condition = document.getElementById('condition');
+    
+    const todayButton = document.getElementById('todayButton');
     const todayTemperature = document.getElementById('todayTemperature')
     const todayIcon = document.getElementById('todayIcon');
+
+    const tommorrowButton = document.getElementById('tommorrowButton');
     const tommorrowTemperature = document.getElementById('tommorrowTemperature');
     const tommorrowIcon = document.getElementById('tommorrowIcon');
+
+    const thirdDayButton = document.getElementById('thirdDayButton');
     const thirdDayDate = document.getElementById('thirdDayDate');
     const thirdDayTemperature = document.getElementById('thirdDayTemperature');
     const thirdDayIcon = document.getElementById('thirdDayIcon');
-    const forthDayDate = document.getElementById('forthDayDate')
+
+    const forthDayButton = document.getElementById('forthDayButton');
+    const forthDayDate = document.getElementById('forthDayDate');
     const forthDayTemperature = document.getElementById('forthDayTemperature');
     const forthDayIcon = document.getElementById('forthDayIcon');
    
