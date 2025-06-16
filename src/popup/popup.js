@@ -12,6 +12,10 @@ chrome.storage.local.get('weatherData', (result) => {
     const todayIcon = document.getElementById('todayIcon');
     const tommorrowTemperature = document.getElementById('tommorrowTemperature');
     const tommorrowIcon = document.getElementById('tommorrowIcon');
+    const thirdDayTemperature = document.getElementById('thirdDayTemperature');
+    const thirdDayIcon = document.getElementById('thirdDayIcon');
+    const forthDayTemperature = document.getElementById('forthDayTemperature');
+    const forthDayIcon = document.getElementById('forthDayIcon');
    
 
     if (data) {
@@ -29,10 +33,14 @@ chrome.storage.local.get('weatherData', (result) => {
         const [thirdYear, thirdMonth, thirdDay] = data.forecast.forecastday[1].date.split("-");
         const thirdDateString = `${thirdDay}-${thirdMonth}`
         thirdDayButton.innerText = `${thirdDateString}`;
+        thirdDayTemperature.innerText = `${data.forecast.forecastday[1].day.avgtemp_c}\u00B0C`;
+        thirdDayIcon.src = `https:${data.forecast.forecastday[1].day.condition.icon}`;
 
         const [forthYear, forthMonth, forthDay] = data.forecast.forecastday[2].date.split("-");
         const forthDateString = `${forthDay}-${forthMonth}`
         forthDayButton.innerText = `${forthDateString}`;
+        forthDayTemperature.innerText = `${data.forecast.forecastday[2].day.avgtemp_c}\u00B0C`;
+        forthDayIcon.src = `https:${data.forecast.forecastday[2].day.condition.icon}`;
     }
 
 });
