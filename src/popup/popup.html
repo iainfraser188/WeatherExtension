@@ -4,8 +4,19 @@
   <title>Weather</title>
 </head>
 <body>
-  <h1>Current Weather</h1>
-  <div id="weather"></div>
+  <div class="container">
+    <h4 class="text" id="locationName"></h4>
+    <p class="text"id="temperature"></p>
+    <img id="weatherIcon">
+    <p class="text" id="condition"></p>
+      <div class="weatherDaysContainer">
+        <button id="todayButton">Today</button>
+        <button id="tommorrowButton">Tomorrow</button>
+        <button id="thirdDayButton"></button>
+        <button id="forthDayButton"></button>
+      </div>
+  </div>
+  
   <script src="popup.js"></script>
 </body>
 </html>

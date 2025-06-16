@@ -4,23 +4,23 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  devtool: 'source-map',
+  devtool: "source-map",
   entry: {
     background: "./src/background.js",
-    content: "./src/content.js",
     popup: "./src/popup/popup.js",
   },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
     clean: true,
-     environment: {
-    arrowFunction: false,
-    const: false,
-    destructuring: false,
-    dynamicImport: false,
-    module: false,
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
