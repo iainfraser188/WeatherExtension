@@ -10,6 +10,8 @@ chrome.storage.local.get('weatherData', (result) => {
     const forthDayButton = document.getElementById('forthDayButton');
     const todayTemperature = document.getElementById('todayTemperature')
     const todayIcon = document.getElementById('todayIcon');
+    const tommorrowTemperature = document.getElementById('tommorrowTemperature');
+    const tommorrowIcon = document.getElementById('tommorrowIcon');
    
 
     if (data) {
@@ -20,7 +22,10 @@ chrome.storage.local.get('weatherData', (result) => {
 
         todayTemperature.innerText = `${data.current.temp_c}\u00B0C`;
         todayIcon.src = `https:${data.current.condition.icon}`;
-        
+
+        tommorrowTemperature.innerText = `${data.forecast.forecastday[0].day.avgtemp_c}\u00B0C`;
+        tommorrowIcon.src = `https:${data.forecast.forecastday[0].day.condition.icon}`;
+
         const [thirdYear, thirdMonth, thirdDay] = data.forecast.forecastday[1].date.split("-");
         const thirdDateString = `${thirdDay}-${thirdMonth}`
         thirdDayButton.innerText = `${thirdDateString}`;
