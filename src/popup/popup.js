@@ -51,7 +51,6 @@ chrome.storage.local.get('weatherData', (result) => {
         forthDayIcon.src = `https:${data.forecast.forecastday[2].day.condition.icon}`;
 
         function updateMainWeatherDisplay(locationName, country, temp, iconUrl,conditionText) {
-            console.log("condition", condition);
             location.innerText = `${locationName}, ${country}`;
             temperature.innerText = `${temp}\u00B0C`;
             weatherIcon.src = `https:${iconUrl}`;

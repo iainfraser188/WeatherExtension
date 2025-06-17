@@ -9,5 +9,9 @@
   "action": {
     "default_popup": "popup.html"
   },
+"options_ui": {
+  "page": "options/options.html",
+  "open_in_tab": true
+  },
   "permissions": ["scripting", "tabs", "alarms", "storage"]
 }
