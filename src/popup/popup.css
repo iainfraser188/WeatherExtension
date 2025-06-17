@@ -1,6 +1,10 @@
 html, body {
     background-color: black;
 }
+
+p {
+    font-size:smaller;
+}
 .container {
     width:300px;
     background-color: rgb(2, 95, 99);
@@ -15,4 +19,23 @@ html, body {
     color: white;
     font-size: medium;
     margin: 0px;
+}
+
+.weather-days-container{
+    width:100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.day-button {
+    width:20%;
+    color: white;
+    background-color: cornflowerblue;
+    border: 1px solid black;
+    border-radius: 7px;
+}
+
+.button-img {
+    width:100%;
 }

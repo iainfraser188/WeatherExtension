@@ -49,6 +49,58 @@ chrome.storage.local.get('weatherData', (result) => {
         forthDayDate.innerText = `${forthDateString}`;
         forthDayTemperature.innerText = `${data.forecast.forecastday[2].day.avgtemp_c}\u00B0C`;
         forthDayIcon.src = `https:${data.forecast.forecastday[2].day.condition.icon}`;
+
+        function updateMainWeatherDisplay(locationName, country, temp, iconUrl,conditionText) {
+            console.log("condition", condition);
+            location.innerText = `${locationName}, ${country}`;
+            temperature.innerText = `${temp}\u00B0C`;
+            weatherIcon.src = `https:${iconUrl}`;
+            condition.innerText = conditionText;
+        }
+
+        todayButton.addEventListener("click", () => {
+            updateMainWeatherDisplay(
+                data.location.name,
+                data.location.country,
+                data.current.temp_c,
+                data.current.condition.icon,
+                data.current.condition.text
+            );
+        });
+
+        tommorrowButton.addEventListener("click", () =>{
+            const forecast = data.forecast.forecastday[0];
+            updateMainWeatherDisplay(
+                data.location.name,
+                data.location.country,
+                forecast.day.avgtemp_c,
+                forecast.day.condition.icon,
+                forecast.day.condition.text
+            );
+        });
+
+        thirdDayButton.addEventListener("click", () => {
+            const forecast = data.forecast.forecastday[1];
+            updateMainWeatherDisplay(
+                data.location.name,
+                data.location.country,
+                forecast.day.avgtemp_c,
+                forecast.day.condition.icon,
+                forecast.day.condition.text
+            );
+        });
+
+        forthDayButton.addEventListener("click", () => {
+            const forecast = data.forecast.forecastday[2];
+            updateMainWeatherDisplay(
+                data.location.name,
+                data.location.country,
+                forecast.day.avgtemp_c,
+                forecast.day.condition.icon,
+                forecast.day.condition.text
+            );
+        });
+
     }
 
 });

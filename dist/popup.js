@@ -24,6 +24,10 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, `html, body {
     background-color: black;
 }
+
+p {
+    font-size:smaller;
+}
 .container {
     width:300px;
     background-color: rgb(2, 95, 99);
@@ -38,7 +42,26 @@ ___CSS_LOADER_EXPORT___.push([module.id, `html, body {
     color: white;
     font-size: medium;
     margin: 0px;
-}`, "",{"version":3,"sources":["webpack://./src/popup/popup.css"],"names":[],"mappings":"AAAA;IACI,uBAAuB;AAC3B;AACA;IACI,WAAW;IACX,gCAAgC;IAChC,kBAAkB;IAClB,aAAa;IACb,mBAAmB;IACnB,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;IACI,YAAY;IACZ,iBAAiB;IACjB,WAAW;AACf","sourcesContent":["html, body {\r\n    background-color: black;\r\n}\r\n.container {\r\n    width:300px;\r\n    background-color: rgb(2, 95, 99);\r\n    border-radius: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    border: 1px solid black;\r\n    flex-direction: column;\r\n}\r\n\r\n.text {\r\n    color: white;\r\n    font-size: medium;\r\n    margin: 0px;\r\n}"],"sourceRoot":""}]);
+}
+
+.weather-days-container{
+    width:100%;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.day-button {
+    width:20%;
+    color: white;
+    background-color: cornflowerblue;
+    border: 1px solid black;
+    border-radius: 7px;
+}
+
+.button-img {
+    width:100%;
+}`, "",{"version":3,"sources":["webpack://./src/popup/popup.css"],"names":[],"mappings":"AAAA;IACI,uBAAuB;AAC3B;;AAEA;IACI,iBAAiB;AACrB;AACA;IACI,WAAW;IACX,gCAAgC;IAChC,kBAAkB;IAClB,aAAa;IACb,mBAAmB;IACnB,uBAAuB;IACvB,sBAAsB;AAC1B;;AAEA;IACI,YAAY;IACZ,iBAAiB;IACjB,WAAW;AACf;;AAEA;IACI,UAAU;IACV,aAAa;IACb,6BAA6B;IAC7B,gBAAgB;AACpB;;AAEA;IACI,SAAS;IACT,YAAY;IACZ,gCAAgC;IAChC,uBAAuB;IACvB,kBAAkB;AACtB;;AAEA;IACI,UAAU;AACd","sourcesContent":["html, body {\r\n    background-color: black;\r\n}\r\n\r\np {\r\n    font-size:smaller;\r\n}\r\n.container {\r\n    width:300px;\r\n    background-color: rgb(2, 95, 99);\r\n    border-radius: 8px;\r\n    display: flex;\r\n    align-items: center;\r\n    border: 1px solid black;\r\n    flex-direction: column;\r\n}\r\n\r\n.text {\r\n    color: white;\r\n    font-size: medium;\r\n    margin: 0px;\r\n}\r\n\r\n.weather-days-container{\r\n    width:100%;\r\n    display: flex;\r\n    justify-content: space-around;\r\n    margin-top: 20px;\r\n}\r\n\r\n.day-button {\r\n    width:20%;\r\n    color: white;\r\n    background-color: cornflowerblue;\r\n    border: 1px solid black;\r\n    border-radius: 7px;\r\n}\r\n\r\n.button-img {\r\n    width:100%;\r\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -572,14 +595,22 @@ chrome.storage.local.get('weatherData', (result) => {
     const temperature = document.getElementById('temperature');
     const weatherIcon = document.getElementById('weatherIcon');
     const condition = document.getElementById('condition');
+    
+    const todayButton = document.getElementById('todayButton');
     const todayTemperature = document.getElementById('todayTemperature')
     const todayIcon = document.getElementById('todayIcon');
+
+    const tommorrowButton = document.getElementById('tommorrowButton');
     const tommorrowTemperature = document.getElementById('tommorrowTemperature');
     const tommorrowIcon = document.getElementById('tommorrowIcon');
+
+    const thirdDayButton = document.getElementById('thirdDayButton');
     const thirdDayDate = document.getElementById('thirdDayDate');
     const thirdDayTemperature = document.getElementById('thirdDayTemperature');
     const thirdDayIcon = document.getElementById('thirdDayIcon');
-    const forthDayDate = document.getElementById('forthDayDate')
+
+    const forthDayButton = document.getElementById('forthDayButton');
+    const forthDayDate = document.getElementById('forthDayDate');
     const forthDayTemperature = document.getElementById('forthDayTemperature');
     const forthDayIcon = document.getElementById('forthDayIcon');
    
@@ -607,6 +638,58 @@ chrome.storage.local.get('weatherData', (result) => {
         forthDayDate.innerText = `${forthDateString}`;
         forthDayTemperature.innerText = `${data.forecast.forecastday[2].day.avgtemp_c}\u00B0C`;
         forthDayIcon.src = `https:${data.forecast.forecastday[2].day.condition.icon}`;
+
+        function updateMainWeatherDisplay(locationName, country, temp, iconUrl,conditionText) {
+            console.log("condition", condition);
+            location.innerText = `${locationName}, ${country}`;
+            temperature.innerText = `${temp}\u00B0C`;
+            weatherIcon.src = `https:${iconUrl}`;
+            condition.innerText = conditionText;
+        }
+
+        todayButton.addEventListener("click", () => {
+            updateMainWeatherDisplay(
+                data.location.name,
+                data.location.country,
+                data.current.temp_c,
+                data.current.condition.icon,
+                data.current.condition.text
+            );
+        });
+
+        tommorrowButton.addEventListener("click", () =>{
+            const forecast = data.forecast.forecastday[0];
+            updateMainWeatherDisplay(
+                data.location.name,
+                data.location.country,
+                forecast.day.avgtemp_c,
+                forecast.day.condition.icon,
+                forecast.day.condition.text
+            );
+        });
+
+        thirdDayButton.addEventListener("click", () => {
+            const forecast = data.forecast.forecastday[1];
+            updateMainWeatherDisplay(
+                data.location.name,
+                data.location.country,
+                forecast.day.avgtemp_c,
+                forecast.day.condition.icon,
+                forecast.day.condition.text
+            );
+        });
+
+        forthDayButton.addEventListener("click", () => {
+            const forecast = data.forecast.forecastday[2];
+            updateMainWeatherDisplay(
+                data.location.name,
+                data.location.country,
+                forecast.day.avgtemp_c,
+                forecast.day.condition.icon,
+                forecast.day.condition.text
+            );
+        });
+
     }
 
 });
