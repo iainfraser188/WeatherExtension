@@ -12,11 +12,11 @@ saveButton.addEventListener("click", () => {
     chrome.storage.sync.set({ userLocation: location }, () => {
       statusMessage.textContent = "Location saved!";
       setTimeout(() => (statusMessage.textContent = ""), 2000);
+      chrome.runtime.sendMessage({ action: "refreshWeather" });
     });
   }
 });
 
-chrome.runtime.sendMessage({ action: "refreshWeather" });
 
 /******/ })()
 ;
